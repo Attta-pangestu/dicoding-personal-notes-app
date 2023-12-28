@@ -1,0 +1,44 @@
+.card {
+    max-width: 300px;
+    background-color: transparent;
+    border: 1px solid var(--primary-color);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    color: var(--light-color);
+    overflow: hidden;
+    border-radius: 1rem;
+}
+
+.card__header {
+    padding: .5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.card__header__heading {
+    font-weight:600 ;
+    color: var(--primary-color);
+}
+
+.card__header__date {
+    opacity: .9;
+    font-size: small;
+}
+
+.card__body {
+    color: var(--light-color);
+}
+
+
+.card__footer {
+    border-top: 2px solid var(--primary-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+
+

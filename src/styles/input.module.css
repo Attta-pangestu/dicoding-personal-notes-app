@@ -1,0 +1,35 @@
+.noteForm {
+    margin: 2rem auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 10px;
+    max-width: 30rem;
+}
+
+.note_form__heading{
+    color: var(--primary-color);
+    text-align: center;
+    font-weight: 900;
+    font-size: 2.5rem;
+}
+
+
+
+
+.note_form__counter_word{
+    text-align: right;
+    opacity: 0.9;
+    color: var(--light-color);
+
+}
+
+.remain_character{
+    color: var(--primary-color);
+    font-weight: 700;
+}
+
+
+
+
+

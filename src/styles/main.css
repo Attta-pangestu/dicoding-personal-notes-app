@@ -1,0 +1,32 @@
+:root {
+  --primary-color : #ffe227;
+  --dark-color : #121013;
+  --light-color : #f2f2f2;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: #202124;
+  color: white;
+}
+
+input, textarea {
+  padding: 12px;
+  margin: 12px 0;
+  background-color: transparent;
+  color: white;
+  border: 1px solid #aaa;
+  border-radius: 4px;
+}
+
+input::placeholder, textarea::placeholder {
+  color: #aaa;
+  font-weight: bold;
+}
+
