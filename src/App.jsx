@@ -14,18 +14,15 @@ class App extends React.Component {
     super();
     const notesArray = getInitialData();
     const formattedNotesArray = this.formatNotesArray(notesArray) ;
-    const archivedArray = this.filterArchiveNotes(formattedNotesArray,true);
-    const unarchiveArray = this.filterArchiveNotes(formattedNotesArray, false);
-    
+
     this.state = {
       notesArray : formattedNotesArray,
-      archivedArray :archivedArray,
-      unarchivedArray:unarchiveArray,
+      
     }
 
     this.onAddNotesEventHandler = this.onAddNotesEventHandler.bind(this);
     this.onDeleteNoteEventHandler = this.onDeleteNoteEventHandler.bind(this);
-  
+    this.onArchivedEventHandler = this.onArchivedEventHandler.bind(this);
   }
 
   filterArchiveNotes(noteArray, filter) {
@@ -44,25 +41,44 @@ class App extends React.Component {
   }
 
   onDeleteNoteEventHandler(id) {
-    this.setState({
-      notesArray : this.state.notesArray.filter(note => (note.id !==id))
-    })
+    this.setState((prevState) => {
+      const updatedNotesArray = prevState.notesArray.filter(note => note.id !== id);
+      return {
+        notesArray: updatedNotesArray,
+      };
+    }, () => {
+      console.log(this.state.notesArray);
+    });
   }
+  
 
-  onArchivedEventHandler(id) {
-    this.setState({})
+  onArchivedEventHandler(id,isToArchive) {
+    if(isToArchive) {
+      this.setState((prevState) => {
+        const updatedNotesArray = prevState.notesArray.map(note => note.id === id ? {...note, archived:true} : note)  
+      return {
+        notesArray: updatedNotesArray,
+      }});
+    } else {
+      this.setState((prevState) => {
+        const updatedNotesArray = prevState.notesArray.map(note => note.id === id ? {...note, archived:false} : note);
+        return {
+          notesArray : updatedNotesArray
+        }
+      })
+    }
+   
   }
   
 
   render () {
-    console.log(this.state.archivedArray);
     return (
       <React.Fragment>
         <Header />
         <main className={style.main}>
           <NoteInput  addNotes={this.onAddNotesEventHandler}/>
-          <NotesList sectionTitle={"Active Note"} notesArray={this.state.unarchivedArray} onArchiveHandler={this.onArchivedEventHandler} onDeleteHandler={this.onDeleteNoteEventHandler} />
-          <NotesList sectionTitle={"Archived Note"} notesArray={this.state.archivedArray} onArchiveHandler={this.onArchivedEventHandler} onDeleteHandler={this.onDeleteNoteEventHandler} />
+          <NotesList sectionTitle={"Active Note"} notesArray={this.filterArchiveNotes(this.state.notesArray,false)} onArchiveHandler={this.onArchivedEventHandler} onDeleteHandler={this.onDeleteNoteEventHandler} />
+          <NotesList sectionTitle={"Archived Note"} notesArray={this.filterArchiveNotes(this.state.notesArray,true)} onArchiveHandler={this.onArchivedEventHandler} onDeleteHandler={this.onDeleteNoteEventHandler} />
           
         </main>
       </React.Fragment>

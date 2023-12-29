@@ -12,7 +12,7 @@ function CardNote({id, title, createdAt, body, archived, onDeleteHandler, onArch
         </header>
         <footer className={style.card__footer}>
           <Button label={"Delete"} onClick={() => {onDeleteHandler(id)}}  />
-          <Button onClick={() => onArchiveHandler(id) }  label={archived ? "Unarchived" : "Archived"} />
+          <Button onClick={archived ? () => onArchiveHandler(id,false) : () => onArchiveHandler(id,true)}  label={archived ? "Unarchived" : "Archived"} />
         </footer>
       </article>
     );
