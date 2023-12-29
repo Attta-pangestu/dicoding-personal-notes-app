@@ -1,0 +1,25 @@
+.button {
+    background-color: transparent ;
+    flex: 1;
+    text-align: center;
+    padding: .5rem 2rem;
+    cursor: pointer;
+    font-size: .8rem;
+    font-weight: bold;
+
+}
+
+.button:hover{
+    background-color: var(--primary-color);
+}
+
+.button[data-action="Delete"]  {
+    color: red;
+}
+
+.button[data-action="Archived"], .button[data-action="Unarchived"]{
+    color: rgb(28, 197, 28);
+}
+
+
+

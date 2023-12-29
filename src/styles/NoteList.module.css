@@ -3,14 +3,14 @@
     font-weight: 900;
     color: var(--primary-color);
     border-bottom: 2px solid var(--primary-color);
-
+    margin-bottom: 2rem;
 }
 
 .list_container {
-    display: grid;
-    grid-template-columns: repeat(4,1fr);
-    grid-template-rows: minmax(min-content,max-content);
+    display: flex;
+    flex-wrap: wrap;
     gap: 16px;
+    justify-content: center;
 }
 
 
