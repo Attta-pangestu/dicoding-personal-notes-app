@@ -18,22 +18,22 @@ class NoteInput extends React.Component {
     }
 
     onTitleEventHandler(event) {
-        this.setState({
-            title : event.target.value, 
-        });
-    }
-
-    onBodyEventHandler(event) {
-        const bodyVal = event.target.value; 
+        const titleVal = event.target.value ; 
         const limitChar = 50;
         // Check body length and set condition
-        const remainCharacter = bodyVal.length - limitChar;
-        if(remainCharacter){
+        const remainCharacter = titleVal.length - limitChar;
+        if(remainCharacter !== 0 ){
             this.setState({
-                body : bodyVal, 
+                title : titleVal,
             });
         } 
         
+    }
+
+    onBodyEventHandler(event) {
+        this.setState({
+            body : event.target.value, 
+        }); 
     }
 
     onSubmitEventHandler(event) {
@@ -56,9 +56,9 @@ class NoteInput extends React.Component {
         return (
             <form className={style.noteForm} onSubmit={this.onSubmitEventHandler} >
                 <h2 className={style.note_form__heading}>Tulis dan Buat Note</h2>
-                <small className={style.note_form__counter_word}>Remaining Character <span className={style.remain_character}>{50-this.state.body.length}</span></small>
-                <Input type="text" placeholder="Judul note..."  onChange={this.onTitleEventHandler} />
-                <Input type="textarea" placeholder="Tulis note kamu...." value={this.state.body} onChange={this.onBodyEventHandler} />
+                <small className={style.note_form__counter_word}>Remaining Character <span className={style.remain_character}>{50-this.state.title.length}</span></small>
+                <Input type="text" placeholder="Judul note..."  onChange={this.onTitleEventHandler} value={this.state.title} />
+                <Input type="textarea" placeholder="Tulis note kamu...." onChange={this.onBodyEventHandler} />
                 <Input type="submit"  value="Simpan Catatan" />
             </form>
         );
