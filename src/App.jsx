@@ -17,12 +17,14 @@ class App extends React.Component {
 
     this.state = {
       notesArray : formattedNotesArray,
+      searchKeyword : "",
       
     }
 
     this.onAddNotesEventHandler = this.onAddNotesEventHandler.bind(this);
     this.onDeleteNoteEventHandler = this.onDeleteNoteEventHandler.bind(this);
     this.onArchivedEventHandler = this.onArchivedEventHandler.bind(this);
+    this.onSearchChangeHandler = this.onSearchChangeHandler.bind(this);
   }
 
   filterArchiveNotes(noteArray, filter) {
@@ -67,18 +69,38 @@ class App extends React.Component {
         }
       })
     }
-   
+  }
+
+
+  onSearchChangeHandler(event) {
+    const keyword = event.target.value ;
+    this.setState({searchKeyword : keyword});
+    console.log("Anda mencari keyword ", this.state.searchKeyword);
   }
   
+  filterNotesBySearchKeyword() {
+    const {searchKeyword, notesArray} = this.state ; 
+    
+    if(!searchKeyword) {
+      return notesArray;
+    }
+
+    const filteredNotes = notesArray.filter(note => {
+      return note.title.toLowerCase().includes(searchKeyword.toLowerCase()) ;
+    });
+    console.log(filteredNotes);
+    return filteredNotes
+  }
 
   render () {
+    const notesBySearch = this.filterNotesBySearchKeyword();
     return (
       <React.Fragment>
-        <Header />
+        <Header onSearchHandler={this.onSearchChangeHandler} />
         <main className={style.main}>
           <NoteInput  addNotes={this.onAddNotesEventHandler}/>
-          <NotesList sectionTitle={"Active Note"} notesArray={this.filterArchiveNotes(this.state.notesArray,false)} onArchiveHandler={this.onArchivedEventHandler} onDeleteHandler={this.onDeleteNoteEventHandler} />
-          <NotesList sectionTitle={"Archived Note"} notesArray={this.filterArchiveNotes(this.state.notesArray,true)} onArchiveHandler={this.onArchivedEventHandler} onDeleteHandler={this.onDeleteNoteEventHandler} />
+          <NotesList sectionTitle={"Active Note"} notesArray={this.filterArchiveNotes(notesBySearch,false)} onArchiveHandler={this.onArchivedEventHandler} onDeleteHandler={this.onDeleteNoteEventHandler} />
+          <NotesList sectionTitle={"Archived Note"} notesArray={this.filterArchiveNotes(notesBySearch,true)} onArchiveHandler={this.onArchivedEventHandler} onDeleteHandler={this.onDeleteNoteEventHandler} />
           
         </main>
       </React.Fragment>
