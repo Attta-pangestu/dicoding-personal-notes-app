@@ -86,7 +86,9 @@ class App extends React.Component {
     }
 
     const filteredNotes = notesArray.filter(note => {
-      return note.title.toLowerCase().includes(searchKeyword.toLowerCase()) ;
+      return note.title.toLowerCase().includes(searchKeyword.toLowerCase()) ||
+            note.body.toLowerCase().includes(searchKeyword.toLowerCase())
+      ;
     });
     console.log(filteredNotes);
     return filteredNotes
